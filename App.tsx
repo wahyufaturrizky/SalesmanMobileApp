@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -6,113 +7,150 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import packageJson from './package.json';
+import {Image} from './src/components/Image';
+import {Text} from './src/components/Text';
+import {TouchableOpacity} from './src/components/TouchableOpacity';
+import {TruckProvider} from './src/context/TruckProvider';
+import AutomaticFFBGradingScreen from './src/sreens/AutomaticFFBGrading';
+import ClassificationResultsScreen from './src/sreens/ClassificationResults';
+import CreateTruckScreen from './src/sreens/CreateTruck';
+import DetailFFBGradingScreen from './src/sreens/DetailFFBGrading';
+import GradingScreen from './src/sreens/Grading';
+import NewAutomaticFFBGradingScreen from './src/sreens/NewAutomaticFFBGrading';
+import SplashScreen from './src/sreens/Splash';
+import {colors} from './src/style/color';
+import {strings} from './src/translation';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const queryClient = new QueryClient();
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <TruckProvider>
+      <NavigationContainer>
+        <QueryClientProvider client={queryClient}>
+          <Stack.Navigator initialRouteName="Splash">
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name="Splash">
+              {props => <SplashScreen {...props} />}
+            </Stack.Screen>
+
+            <Stack.Screen
+              options={{
+                title: strings.automaticFFBGrading.title,
+                headerBackVisible: false,
+                headerStyle: {
+                  backgroundColor: colors.green.regular,
+                },
+                headerTitleStyle: {
+                  color: colors.white.regular,
+                },
+                headerRight: () => (
+                  <Text
+                    label={'(POC) v' + packageJson.version}
+                    textAlign="center"
+                    fontWeight="400"
+                    color={colors.white.regular}
+                  />
+                ),
+              }}
+              name="AutomaticFFBGrading">
+              {props => <AutomaticFFBGradingScreen {...props} />}
+            </Stack.Screen>
+            <Stack.Screen
+              options={({navigation}) => ({
+                title: strings.newFFbGrading.title,
+                headerStyle: {
+                  backgroundColor: colors.green.regular,
+                },
+                headerTitleStyle: {
+                  color: colors.white.regular,
+                },
+                headerTintColor: colors.white.regular,
+                headerRight: () => (
+                  <TouchableOpacity
+                    onPress={async () => {
+                      navigation.navigate('CreateTruck');
+                    }}>
+                    <Image
+                      size={24}
+                      source={require('./src/assets/icons/ic_plus.png')}
+                    />
+                  </TouchableOpacity>
+                ),
+              })}
+              name="NewAutomaticFFBGrading">
+              {props => <NewAutomaticFFBGradingScreen {...props} />}
+            </Stack.Screen>
+            <Stack.Screen
+              options={() => ({
+                title: strings.common.back,
+                headerStyle: {
+                  backgroundColor: colors.green.regular,
+                },
+                headerTitleStyle: {
+                  color: colors.white.regular,
+                },
+                headerTintColor: colors.white.regular,
+              })}
+              name="CreateTruck">
+              {props => <CreateTruckScreen {...props} />}
+            </Stack.Screen>
+            <Stack.Screen
+              options={({route}) => ({
+                title: route.params?.detailData?.truck_no,
+                headerStyle: {
+                  backgroundColor: colors.green.regular,
+                },
+                headerTitleStyle: {
+                  color: colors.white.regular,
+                },
+                headerTintColor: colors.white.regular,
+              })}
+              name="ClassificationResults">
+              {props => <ClassificationResultsScreen {...props} />}
+            </Stack.Screen>
+            <Stack.Screen
+              options={({route}) => ({
+                title: strings.common.back,
+                headerStyle: {
+                  backgroundColor: colors.green.regular,
+                },
+                headerTitleStyle: {
+                  color: colors.white.regular,
+                },
+                headerTintColor: colors.white.regular,
+              })}
+              name="DetailFFBGrading">
+              {props => <DetailFFBGradingScreen {...props} />}
+            </Stack.Screen>
+            <Stack.Screen
+              options={({route}) => ({
+                headerStyle: {
+                  backgroundColor: colors.green.regular,
+                },
+                headerTitleStyle: {
+                  color: colors.white.regular,
+                },
+                headerTintColor: colors.white.regular,
+              })}
+              name="Grading">
+              {props => <GradingScreen {...props} />}
+            </Stack.Screen>
+          </Stack.Navigator>
+        </QueryClientProvider>
+      </NavigationContainer>
+    </TruckProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

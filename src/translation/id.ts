@@ -1,0 +1,67 @@
+export default {
+  signIn: {
+    automaticFfbGrading: 'Penilaian TBS Otomatis',
+    login: 'masuk',
+  },
+  splash: {
+    poc: 'Bukti pada Konsep',
+  },
+  newFFbGrading: {
+    numberOfTruck: 'Daftar Nomor Truk',
+    title: 'Penilaian TBS Baru',
+    noTrucksWillBeDisplayed: 'Tidak ada truk yang akan ditampilkan.',
+  },
+  automaticFFBGrading: {
+    title: 'Penilaian TBS Otomatis',
+    newFFBGrading: 'Penilaian TBS Baru',
+    FFBGradingHistory: 'Sejarah TBS Penilaian',
+    FFBGradingHistoryRequired: 'TBS penilaian history wajib diisi',
+    viewHistory: 'Lihat Sejarah',
+    noFFBGrading: 'Tidak ada penilaian TBS yang dicatat untuk hari ini',
+  },
+  detailFFBGrading: {
+    startGrading: 'Mulai Penilaian',
+  },
+  grading: {
+    send: 'kirim',
+    areYouSureHeader: 'Anda yakin ingin mengakhiri proses penilaian untuk',
+    areYouSureSubtitle: 'Tindakan ini tidak bisa dibatalkan.',
+    thisDataWillNotBeSaved: 'Data ini tidak akan disimpan.',
+    areYouSureYouWantToExit:
+      'Anda yakin ingin keluar dari proses penilaian untuk',
+    totalCount: 'Jumlah Hitungan',
+    totalAccepted: 'Jumlah Diterima',
+    totalRejected: 'Jumlah Ditolak',
+    chooseACriterion: 'Pilih satu kriteria',
+    endGradingFor: 'Akhiri Penilaian untuk',
+    waitingForTheNextFFB: 'Di tunggu TBS selanjutnya...',
+  },
+  createTruck: {
+    addTruck: 'Tambah Truk',
+    theTruckNumberIsExist: 'Nomor truk sudah ada didalam Daftar Nomor Truk',
+  },
+  classificationResults: {
+    beltStatus: 'Belt status',
+    runningStop: 'Lari / Berhenti',
+    totalCount: 'Jumlah Keseluruhan',
+    totalAccepted: 'Jumlah Diterima',
+    totalRejected: 'Jumlah Ditolak',
+    classificationResults: 'Hasil Klasifikasi',
+    predicted: 'Diprediksi',
+    actual: 'Sebenarnya',
+  },
+  common: {
+    date: 'Tanggal',
+    lastUpdated: 'Terakhir diperbarui',
+    truckNumber: 'Nomor truk',
+    noMoreData: 'Tidak ada lagi data saat ini',
+    refresh: 'Muat ulang',
+    back: 'Kembali',
+    confirm: 'Konfirmasi',
+    cancel: 'Batal',
+    accept: 'Diterima',
+    reject: 'Ditolak',
+    loading: 'Memuat...',
+    grading: 'Penilaian',
+  },
+};
