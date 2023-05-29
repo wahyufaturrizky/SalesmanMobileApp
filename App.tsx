@@ -25,6 +25,7 @@ import NewAutomaticFFBGradingScreen from './src/sreens/NewAutomaticFFBGrading';
 import SplashScreen from './src/sreens/Splash';
 import {colors} from './src/style/color';
 import {strings} from './src/translation';
+import SignInScreen from './src/sreens/SignIn';
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,14 @@ function App(): JSX.Element {
               }}
               name="Splash">
               {props => <SplashScreen {...props} />}
+            </Stack.Screen>
+
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name="SignIn">
+              {props => <SignInScreen {...props} />}
             </Stack.Screen>
 
             <Stack.Screen

@@ -33,7 +33,7 @@ const SplashScreen = ({navigation}: any) => {
 
   useEffect(() => {
     if (timePassed) {
-      navigation.navigate('AutomaticFFBGrading');
+      navigation.navigate('SignIn');
     }
   }, [navigation, timePassed]);
 
